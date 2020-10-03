@@ -11,27 +11,22 @@ function compChoice() {
 function won(selected, comp) {
     userScore++;
     document.querySelector(".user-score").innerHTML = userScore
-    result.innerHTML = `You selected  ${selected}. Opponent selected ${comp}. <br> <br> ${selected} beats ${comp}. <br> <br>Hurray!! You Won🎉`;
+    result.innerHTML = `You selected  ${selected} and Opponent selected ${comp}.<br> ${selected} beats ${comp}.<br>Hurray!! You Won🎉`;
 }
 
 function lost(selected, comp) {
     compScore++;
     document.querySelector(".comp-score").innerHTML = compScore
-    result.innerHTML = `You selected  ${selected}. Opponent selected ${comp}. <br><br> ${comp} beats ${selected}. <br><br>You Lost 🥺 Try Again.`;
+    result.innerHTML = `You selected  ${selected} and Opponent selected ${comp}.<br> ${comp} beats ${selected}.<br>You Lost 🥺 Try Again.`;
 }
 
-function draw(selected, comp) {
-    result.innerHTML = `You both selected ${comp}. <br><br>It's a Draw!! Play Again.`;
+function draw(comp) {
+    result.innerHTML = `You both selected ${comp}.<br>It's a Draw!! Play Again.`;
 }
 
 function game(selectedChoice) {
     let comp_Choice = compChoice()
-    switch(selectedChoice + " " + comp_Choice) {
-        case "Rock Rock":
-        case "Paper Paper":
-        case "Scissor Scissor":
-            draw(selectedChoice, comp_Choice);
-            break;    
+    switch(selectedChoice + " " + comp_Choice) {  
         case "Paper Rock":
         case "Scissor Paper":
         case "Rock Scissor":
@@ -41,30 +36,30 @@ function game(selectedChoice) {
         case "Paper Scissor":
         case "Scissor Rock":
             lost(selectedChoice, comp_Choice);
-            break;    
+            break;   
+        case "Rock Rock":
+        case "Paper Paper":
+        case "Scissor Scissor":
+            draw(selectedChoice, comp_Choice);
+            break;       
         default:
-            document.querySelector(".result").innerHTML = "Play Again!!";
+            result.innerHTML = "Play Again!!";
             break;
     }
 }
 
-
-function userChoice() {
+function userClick(button) {
     let sound = new Audio("./Click2-Sebastian-759472264.mp3");
-    document.querySelector(".rock").addEventListener("click", function(){
-        game("Rock");
-        sound.play();
-    });
-
-    document.querySelector(".paper").addEventListener("click", function(){
-        game("Paper");
-        sound.play();
-    });
-
-    document.querySelector(".scissor").addEventListener("click", function(){
-        game("Scissor");
+    document.getElementsByClassName(button)[0].addEventListener("click", function() {
+        let key = button.charAt(0).toUpperCase() + button.slice(1);
+        game(key);
         sound.play();
     });
 }
 
-userChoice();
+(function userChoice() {
+    userClick("rock");
+    userClick("paper");
+    userClick("scissor")
+})();
+
