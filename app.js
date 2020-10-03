@@ -1,46 +1,46 @@
 let userScore = 0;
-let compScore = 0;
+let computerScore = 0;
 let result = document.querySelector(".resultText");
 
-function compChoice() {
+function computerChoice() {
     let choice = ["Rock", "Paper", "Scissor"];
-    let randomNumber = Math.floor(Math.random()*3);
+    let randomNumber = Math.floor(Math.random() * 3);
     return choice[randomNumber];
 }
 
-function won(selected, comp) {
+function won(userSelection, computerSelection) {
     userScore++;
     document.querySelector(".user-score").innerHTML = userScore
-    result.innerHTML = `You selected  ${selected} and Opponent selected ${comp}.<br> ${selected} beats ${comp}.<br>Hurray!! You Won🎉`;
+    result.innerHTML = `You selected  ${userSelection} and Opponent selected ${computerSelection}.<br> ${userSelection} beats ${computerSelection}.<br>Hurray!! You Won🎉`;
 }
 
-function lost(selected, comp) {
-    compScore++;
-    document.querySelector(".comp-score").innerHTML = compScore
-    result.innerHTML = `You selected  ${selected} and Opponent selected ${comp}.<br> ${comp} beats ${selected}.<br>You Lost 🥺 Try Again.`;
+function lost(userSelection, computerSelection) {
+    computerScore++;
+    document.querySelector(".comp-score").innerHTML = computerScore
+    result.innerHTML = `You selected  ${userSelection} and Opponent selected ${computerSelection}.<br> ${computerSelection} beats ${userSelection}.<br>You Lost 🥺 Try Again.`;
 }
 
-function draw(comp) {
-    result.innerHTML = `You both selected ${comp}.<br>It's a Draw!! Play Again.`;
+function draw(computerSelection) {
+    result.innerHTML = `You both selected ${computerSelection}.<br>It's a Draw!! Play Again.`;
 }
 
-function game(selectedChoice) {
-    let comp_Choice = compChoice()
-    switch(selectedChoice + " " + comp_Choice) {  
+function game(userSelectedChoice) {
+    let computerSelectedChoice = computerChoice();
+    switch(userSelectedChoice + " " + computerSelectedChoice) {  
         case "Paper Rock":
         case "Scissor Paper":
         case "Rock Scissor":
-            won(selectedChoice, comp_Choice);
+            won(userSelectedChoice, computerSelectedChoice);
             break;
         case "Rock Paper":
         case "Paper Scissor":
         case "Scissor Rock":
-            lost(selectedChoice, comp_Choice);
+            lost(userSelectedChoice, computerSelectedChoice);
             break;   
         case "Rock Rock":
         case "Paper Paper":
         case "Scissor Scissor":
-            draw(selectedChoice, comp_Choice);
+            draw(userSelectedChoice, computerSelectedChoice);
             break;       
         default:
             result.innerHTML = "Play Again!!";
@@ -48,7 +48,7 @@ function game(selectedChoice) {
     }
 }
 
-function userClick(button) {
+function userClicked(button) {
     let sound = new Audio("./Click2-Sebastian-759472264.mp3");
     document.getElementsByClassName(button)[0].addEventListener("click", function() {
         let key = button.charAt(0).toUpperCase() + button.slice(1);
@@ -57,9 +57,9 @@ function userClick(button) {
     });
 }
 
-(function userChoice() {
-    userClick("rock");
-    userClick("paper");
-    userClick("scissor")
+(function init() {
+    userClicked("rock");
+    userClicked("paper");
+    userClicked("scissor")
 })();
 
